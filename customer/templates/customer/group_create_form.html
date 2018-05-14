@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}Creer un client | {{ block.super }}  {% endblock %}
+{% block javascripts %}
+{{ block.super }}
+{% endblock javascripts %}
+
+{% block content %}
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Tableau de bord</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Creation de groupe</strong>
+            </div>
+            <div class="card-body card-block">
+                <form action="" method="post" novalidate enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'snippets/form-template.html' %}
+                        <div class="form-row">
+                            <button class="btn btn-primary" type="submit">Enregistrement</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}Creation de commande | {{ block.super }}  {% endblock %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/jqueryui.css' %}">
+{% endblock %}
+{% block javascripts %}
+{{ block.super }}
+<script src="{% static 'js/jqueryui.js' %}"></script>
+
+<script>
+    jQuery(function ($) {
+        var $group = $('#id_commercial_group');
+        var $zone = $('#id_zone');
+
+        var $order_form = $('#order-create-form');
+        var $order_submit = $('#order-submit-btn');
+        var $submit_url = $order_form.attr('data-url');
+
+        $order_submit.on('click', function (e) {
+            var $this = $(this);
+
+            var $data_ = $order_form.serialize();
+            // toastr.info('Envoie du formulaire', 'Félicitation');
+            $this.attr('disabled', 'disabled');
+            console.log($submit_url);
+            console.log($data_);
+            $order_form.submit()
+
+        });
+
+        $group.on('change', function (e) {
+            var $this = $(this);
+            $zone.empty();
+            var $url = '/api/groups/' + $this.val() + '/zone/';
+            $.ajax({
+                url: $url,
+                method: 'GET',
+            }).done(function (data) {
+                $.each(data, function (k, v) {
+                    $zone.append($('<option>', {value: v.id, text: v.name}))
+                })
+            }).fail(function (error) {
+                console.log(error)
+            })
+        });
+
+        // datepicker
+        $.datepicker.setDefaults($.datepicker.regional["fr"]);
+
+        var $DateFormat = 'dd/mm/yy';
+        $('#id_ordered_at').datepicker({
+            numberOfMonths: 1,
+            showButtonPanel: true,
+
+        }).on('change',function(){
+           $('#id_ordered_at').datepicker('option', 'dateFormat', $DateFormat)
+        })
+    })
+</script>
+{% endblock javascripts %}
+
+{% block content %}
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Tableau de bord</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Ajouter une commande</strong>
+            </div>
+            <div class="card-body card-block">
+                <form action="" data-url="{% url 'api-order:crud' %}" id="order-create-form" method="post" novalidate
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% include 'snippets/form-template.html' %}
+                </form>
+            </div>
+            <div class="card-footer">
+                <div>
+                    <button class="btn btn-primary" id="order-submit-btn" type="submit">Ajouter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

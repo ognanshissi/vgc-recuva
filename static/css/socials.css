@@ -1,0 +1,324 @@
+/* line 1, ../scss/socials.scss */
+.social {
+  color: #fff;
+}
+/* line 3, ../scss/socials.scss */
+.social.btn-sm {
+  padding: 0 10px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0;
+}
+/* line 9, ../scss/socials.scss */
+.social.btn-lg {
+  border-radius: 0;
+}
+/* line 13, ../scss/socials.scss */
+.social.btn {
+  border-radius: 0;
+}
+/* line 16, ../scss/socials.scss */
+.social i {
+  width: 1.8125rem;
+  line-height: 2;
+}
+/* line 21, ../scss/socials.scss */
+.social.facebook {
+  background: #3b5998;
+}
+/* line 23, ../scss/socials.scss */
+.social.facebook:hover {
+  background: #344e86;
+}
+/* line 27, ../scss/socials.scss */
+.social [class*="-facebook"] {
+  background: #2d4373;
+}
+/* line 31, ../scss/socials.scss */
+.social.twitter {
+  background: #00aced;
+}
+/* line 33, ../scss/socials.scss */
+.social.twitter:hover {
+  background: #0099d4;
+}
+/* line 37, ../scss/socials.scss */
+.social [class*="-twitter"] {
+  background: #0087ba;
+}
+/* line 41, ../scss/socials.scss */
+.social.linkedin {
+  background: #4875b4;
+}
+/* line 43, ../scss/socials.scss */
+.social.linkedin:hover {
+  background: #4169a2;
+}
+/* line 47, ../scss/socials.scss */
+.social [class*="-linkedin"] {
+  background: #395d90;
+}
+/* line 51, ../scss/socials.scss */
+.social.flickr {
+  background: #ff0084;
+}
+/* line 53, ../scss/socials.scss */
+.social.flickr:hover {
+  background: #e60077;
+}
+/* line 57, ../scss/socials.scss */
+.social [class*="-flickr"] {
+  background: #cc006a;
+}
+/* line 61, ../scss/socials.scss */
+.social.tumblr {
+  background: #32506d;
+}
+/* line 63, ../scss/socials.scss */
+.social.tumblr:hover {
+  background: #2a435c;
+}
+/* line 67, ../scss/socials.scss */
+.social [class*="-tumblr"] {
+  background: #22364a;
+}
+/* line 71, ../scss/socials.scss */
+.social.xing {
+  background: #026466;
+}
+/* line 73, ../scss/socials.scss */
+.social.xing:hover {
+  background: #024b4d;
+}
+/* line 77, ../scss/socials.scss */
+.social [class*="-xing"] {
+  background: #013334;
+}
+/* line 81, ../scss/socials.scss */
+.social.github {
+  background: #4183c4;
+}
+/* line 83, ../scss/socials.scss */
+.social.github:hover {
+  background: #3876b4;
+}
+/* line 87, ../scss/socials.scss */
+.social [class*="-github"] {
+  background: #3269a0;
+}
+/* line 91, ../scss/socials.scss */
+.social.html5 {
+  background: #e34f26;
+}
+/* line 93, ../scss/socials.scss */
+.social.html5:hover {
+  background: #d4431b;
+}
+/* line 97, ../scss/socials.scss */
+.social [class*="-html5"] {
+  background: #be3c18;
+}
+/* line 101, ../scss/socials.scss */
+.social.openid {
+  background: #f78c40;
+}
+/* line 103, ../scss/socials.scss */
+.social.openid:hover {
+  background: #f67d28;
+}
+/* line 107, ../scss/socials.scss */
+.social [class*="-openid"] {
+  background: #f56f0f;
+}
+/* line 111, ../scss/socials.scss */
+.social.stack-overflow {
+  background: #fe7a15;
+}
+/* line 113, ../scss/socials.scss */
+.social.stack-overflow:hover {
+  background: #f86c01;
+}
+/* line 117, ../scss/socials.scss */
+.social [class*="-stack-overflow"] {
+  background: #df6101;
+}
+/* line 121, ../scss/socials.scss */
+.social.css3 {
+  background: #0170ba;
+}
+/* line 123, ../scss/socials.scss */
+.social.css3:hover {
+  background: #0161a1;
+}
+/* line 127, ../scss/socials.scss */
+.social [class*="-css3"] {
+  background: #015187;
+}
+/* line 131, ../scss/socials.scss */
+.social.youtube {
+  background: #b00;
+}
+/* line 133, ../scss/socials.scss */
+.social.youtube:hover {
+  background: #a20000;
+}
+/* line 137, ../scss/socials.scss */
+.social [class*="-youtube"] {
+  background: #880000;
+}
+/* line 141, ../scss/socials.scss */
+.social.dribbble {
+  background: #ea4c89;
+}
+/* line 143, ../scss/socials.scss */
+.social.dribbble:hover {
+  background: #e7357a;
+}
+/* line 147, ../scss/socials.scss */
+.social [class*="-dribbble"] {
+  background: #e51e6b;
+}
+/* line 151, ../scss/socials.scss */
+.social.dropbox {
+  background: #007ee5;
+}
+/* line 153, ../scss/socials.scss */
+.social.dropbox:hover {
+  background: #0070cc;
+}
+/* line 157, ../scss/socials.scss */
+.social [class*="-dropbox"] {
+  background: #0070cc;
+}
+/* line 161, ../scss/socials.scss */
+.social.google-plus {
+  background: #d34836;
+}
+/* line 163, ../scss/socials.scss */
+.social.google-plus:hover {
+  background: #c43d2b;
+}
+/* line 167, ../scss/socials.scss */
+.social [class*="-google-plus"] {
+  background: #b03626;
+}
+/* line 171, ../scss/socials.scss */
+.social.instagram {
+  background: #517fa4;
+}
+/* line 173, ../scss/socials.scss */
+.social.instagram:hover {
+  background: #497293;
+}
+/* line 177, ../scss/socials.scss */
+.social [class*="-instagram"] {
+  background: #406582;
+}
+/* line 181, ../scss/socials.scss */
+.social.pinterest {
+  background: #cb2027;
+}
+/* line 183, ../scss/socials.scss */
+.social.pinterest:hover {
+  background: #b51d23;
+}
+/* line 187, ../scss/socials.scss */
+.social [class*="-pinterest"] {
+  background: #9f191f;
+}
+/* line 191, ../scss/socials.scss */
+.social.vk {
+  background: #45668e;
+}
+/* line 193, ../scss/socials.scss */
+.social.vk:hover {
+  background: #3d5a7d;
+}
+/* line 197, ../scss/socials.scss */
+.social [class*="-vk"] {
+  background: #344d6c;
+}
+/* line 201, ../scss/socials.scss */
+.social.yahoo {
+  background: #400191;
+}
+/* line 203, ../scss/socials.scss */
+.social.yahoo:hover {
+  background: #350178;
+}
+/* line 207, ../scss/socials.scss */
+.social [class*="-yahoo"] {
+  background: #2a015e;
+}
+/* line 211, ../scss/socials.scss */
+.social.behance {
+  background: #1769ff;
+}
+/* line 213, ../scss/socials.scss */
+.social.behance:hover {
+  background: #0059fd;
+}
+/* line 217, ../scss/socials.scss */
+.social [class*="-behance"] {
+  background: #0050e3;
+}
+/* line 221, ../scss/socials.scss */
+.social.reddit {
+  background: #ff4500;
+}
+/* line 223, ../scss/socials.scss */
+.social.reddit:hover {
+  background: #e63e00;
+}
+/* line 227, ../scss/socials.scss */
+.social [class*="-reddit"] {
+  background: #cc3700;
+}
+/* line 231, ../scss/socials.scss */
+.social.spotify {
+  background: #7ab800;
+}
+/* line 233, ../scss/socials.scss */
+.social.spotify:hover {
+  background: #699f00;
+}
+/* line 237, ../scss/socials.scss */
+.social [class*="-spotify"] {
+  background: #588500;
+}
+/* line 241, ../scss/socials.scss */
+.social.vine {
+  background: #00bf8f;
+}
+/* line 243, ../scss/socials.scss */
+.social.vine:hover {
+  background: #00a67c;
+}
+/* line 247, ../scss/socials.scss */
+.social [class*="-vine"] {
+  background: #008c69;
+}
+/* line 251, ../scss/socials.scss */
+.social.foursquare {
+  background: #1073af;
+}
+/* line 253, ../scss/socials.scss */
+.social.foursquare:hover {
+  background: #0e6498;
+}
+/* line 257, ../scss/socials.scss */
+.social [class*="-foursquare"] {
+  background: #0c5480;
+}
+/* line 261, ../scss/socials.scss */
+.social.vimeo {
+  background: #aad450;
+}
+/* line 263, ../scss/socials.scss */
+.social.vimeo:hover {
+  background: #a0cf3c;
+}
+/* line 267, ../scss/socials.scss */
+.social [class*="-vimeo"] {
+  background: #93c130;
+}

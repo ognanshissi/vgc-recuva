@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+<!-- load static files -->
+{% load staticfiles %}
+
+{% block dashbord_active %}active{% endblock %}
+
+{% block title %}Tableau de bord | {{ block.super }}  {% endblock %}
+
+
+{% block content %}
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Tableau de bord</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li class=""><a href="{% url 'home' %}">Tableau de bord</a></li>
+                    <li class="active">Statistiques</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Statistiques</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <canvas id="myChart" data-endpoint="{% url 'api-analytics:list' %}"
+                                height="180"></canvas>
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{{ block.super }}
+<script src="{% static 'js/chartjs.min.js' %}"></script>
+<script>
+
+    $.ajax({
+        url: '/api-analytics/test/',
+        method: 'GET'
+    }).done(function (data) {
+        console.log(data)
+    });
+
+    var url = $('#myChart').attr('data-endpoint');
+    $.ajax({
+        url: url,
+        method: 'GET',
+    }).done(function (data) {
+        console.log(data)
+    })
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            datasets: [{
+                label: 'stats des ventes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

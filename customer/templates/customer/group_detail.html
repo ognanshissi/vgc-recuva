@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}{{ block.super }}  {% endblock %}
+{% block javascripts %}
+{{ block.super }}
+
+<script>
+    $(document).ready(function () {
+        $('#bootstrap-data-table-export').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+            }
+        });
+    });
+</script>
+{% endblock javascripts %}
+
+{% block content %}
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Tableau de bord</h1>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="content mt-3">
+    <div class="col-lg-12">
+
+        <div class="card">
+            <div class="card-header">
+
+                <strong class="card-title"> <a href="{% url 'customer:group-list' %}" class="btn btn-outline-warning">
+                    <i
+                            class="fa fa-arrow-left"></i>
+                    Retour à la liste</a> | Detail du groupe {{object.name}}</strong>
+                <div class="pull-right">
+                    <a href="{{ object.get_absolute_url }}" class="btn btn-primary">Modifié les informations du
+                        groupe</a>
+
+                </div>
+                <div class="clearfix"></div>
+
+            </div>
+            <div class="card-body">
+                <!--{% if request.GET.lens_type %} {{all_stock.count}} {% endif %}-->
+                <h4 class="header-title mb-5">Liste des Zone de prospections du groupe</h4>
+                <table class="table table-striped" id="bootstrap-data-table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nom de la zone</th>
+                        <th>Nombre de commande</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for obj in object.groupzone_set.all %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td><a href="{{ obj.get_absolute_url }}">{{obj.name}}</a></td>
+                        <td>{{obj.order_set.all.count}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

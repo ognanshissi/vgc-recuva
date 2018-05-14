@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}{{ block.super }}  {% endblock %}
+{% block javascripts %}
+{{ block.super }}
+
+<script>
+    $(document).ready(function () {
+        $('#bootstrap-data-table-export').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+            }
+        });
+    });
+</script>
+{% endblock javascripts %}
+
+{% block content %}
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Tableau de bord</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <a href="{{object.group.get_absolute_detail_url}}" class="btn btn-default"> <i class="fa fa-arrow-left"></i> Retour</a> | <strong>Liste des commandes de la zone <span class="text-danger">{{object.name}}</span> </strong>
+                </div>
+                <div class="pull-right">
+                    <!--<span>Filtrer par type de lentille: </span>-->
+                    <span><a title="Add New" href="{% url 'order:order-create' %}" class="btn btn-primary"><i
+                            class="fa fa-plus-circle"></i> Ajouter une commande</a></span>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="">
+                    <button class="btn btn-default">Filtrer</button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                {% if object.order_set.all.count > 0 %}
+                <table id="bootstrap-data-table" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <!--<th scope="col">#</th>-->
+                        <th scope="col">Reference</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Prix du verre</th>
+                        <th scope="col">Avance</th>
+                        <th scope="col">Montant Restant</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Date de consultation</th>
+                        <th scope="col">Date de livraison</th>
+                        <th scope="col">Status des versements</th>
+
+                        <th scope="col"><!-- TODO: write "Action' to show the user what this "th" is for --></th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in object.order_set.all %}
+                    <tr>
+                        <!--<th scope="row">{{forloop.counter}}</th>-->
+                        <td><a href="{{order.get_absolute_url}}" title="Order Detail">{{order.order_id}}</a></td>
+                        <td>{{order.full_name}}</td>
+                        <td>{{order.price}}</td>
+                        <td>{{order.advance}}</td>
+                        <td>{{order.rest}}</td>
+                        <td style="text-align: center" class="{% if order.status == 'created' %} bg-primary {% elif order.status == 'paid' %} bg-success {% elif order.status == 'shipped' %} bg-warning{% else %} bg-info {% endif %}" >
+                            {{order.get_status_display}}
+                        </td>
+                        <td>{{order.ordered_at}}</td>
+                        <td>{% if order.shipped %}{{order.shipped_at}}{% endif %}</td>
+                    {% if order.shipped %}
+                         <td style="vertical-align: center; text-align: center;" class="{% if order.payment_status_check == 0 %} bg-success {% elif order.payment_status_check == 1 %} bg-warning {% else %} bg-danger  {% endif %}">{{ order.payment_check_status }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+
+                        <td>
+                            <a class="btn btn-outline-primary" href="{{order.get_absolute_url}}" title="Order Detail"><i class="fa fa-eye"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <ul class="errorlist">
+                    <li>Il n'y a aucune consultation dans cette zone</li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

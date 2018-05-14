@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}Liste des clients | {{ block.super }}  {% endblock %}
+{% block javascripts %}
+{{ block.super }}
+
+<script>
+    $(document).ready(function () {
+        $('#bootstrap-data-table-export').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+            }
+        });
+    });
+</script>
+{% endblock javascripts %}
+
+{% block content %}
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Tableau de bord</h1>
+            </div>
+        </div>
+    </div>
+    <!--<div class="col-sm-8">-->
+        <!--<div class="page-header float-right">-->
+            <!--<div class="page-title">-->
+                <!--<ol class="breadcrumb text-right">-->
+                    <!--<li class="active">Produits</li>-->
+                <!--</ol>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>
+
+<div class="content mt-3">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Liste des clients</strong>
+                <div class="pull-right">
+                    <!--<span>Filtrer par type de lentille: </span>-->
+                    <span><a title="Add New" href="{% url 'customer:group-create' %}" class="btn btn-primary"><i
+                            class="fa fa-plus-circle"></i> Ajouter un groupe</a></span>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="">
+                    <button class="btn btn-default">Filtrer</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <!--{% if request.GET.lens_type %} {{all_stock.count}} {% endif %}-->
+                {% if object_list %}
+                <table id="bootstrap-data-table" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Non du groupe</th>
+                        <th scope="col">Ville</th>
+                        <th scope="col">Nombre de zone de prospections</th>
+                        <th scope="col"><!-- TODO: write "Action' to show the user what this "th" is for --></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for c in object_list %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a href="{{c.get_absolute_detail_url}}" title="Order Detail">{{c.name}}</a></td>
+                        <td>{{c.city}}</td>
+                        <td>{{c.groupzone_set.all.count}}</td>
+                        <td>
+                            <a class="btn btn-outline-primary" href="{{c.get_absolute_url}}" title="group edit"><i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-outline-secondary" href="{{c.get_absolute_detail_url}}" title="group edit"><i class="fa fa-eye"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <ul class="errorlist">
+                    <li>Il n'y a aucun groupe</li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

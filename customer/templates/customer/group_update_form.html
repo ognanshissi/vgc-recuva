@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}Creer un client | {{ block.super }}  {% endblock %}
+{% block javascripts %}
+{{block.super}}
+<script type="text/javascript">
+    $(document).ready(function () {
+        var submit = $('#submit_zone_btn');
+        var field = $('#zone');
+        var form = $('#CreateZoneForm');
+        var modal_ = $('#exampleModal');
+
+        modal_.on('hidden.bs.modal', function (e) {
+            $('body').css('padding-right', 0 + 'px')
+            form[0].reset()
+        });
+        modal_.on('shown.bs.modal', function () {
+
+            field.trigger('focus');
+
+            if (field.val() === '') {
+                submit.attr('disabled', 'disabled')
+            }
+
+            field.on('keyup', function (e) {
+                if ($(this).val().length > 3) {
+                    submit.removeAttr('disabled')
+                }
+            });
+
+            submit.on('click', function (e) {
+                var $data = form.serialize();
+                var $url = form.attr('data-endpoint');
+                if (field.val().length > 3) {
+                    submit.attr('disabled', 'disabled')
+                    $.ajax({
+                        url: $url,
+                        data: $data,
+                        method: 'POST'
+                    }).done(function (data) {
+                        if (data.success === true) {
+                            modal_.modal('hide');
+                            toastr.success(data.message, 'Félicitation');
+                            setTimeout(function () {
+                                window.location.reload()
+                            }, 2000);
+                        } else {
+                            field.val("");
+                            setTimeout(function () {
+                                submit.removeAttr('disabled');
+                            }, 2000);
+                            toastr.error(data.error_messages.name, 'Erreur');
+                        }
+                    }).fail(function (error) {
+                        toastr.error(data.message, 'Erreur');
+                    }).always(function () {
+                        submit.removeAttr('disabled')
+                    })
+                }
+            })
+        })
+    })
+
+</script>
+{% endblock %}
+
+{% block content %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter une zone au groupe {{object.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" data-endpoint="{{object.get_api_create_zone_url}}" method="post" id="CreateZoneForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="group_id" value="{{object.pk}}">
+                    <div class="row form-group">
+                        <div class="col col-md-3">
+                            <label class="form-control-label" for="zone">
+                                Nom de la zone:
+                            </label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <input type="text" class="form-control" id="zone" name="name">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Annuller</button>
+                <button type="button" class="btn btn-primary" id="submit_zone_btn">Enregister</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Modal-->
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Tableau de bord</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Modification</strong>
+            </div>
+            <div class="card-body card-block">
+                <form action="" method="post" novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% include 'snippets/form-template.html' %}
+                    <div class="form-row">
+                        <button class="btn btn-primary" type="submit">Mettre a jour et Terminer les modifications
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    Les Zones de propections du groupe
+                </div>
+            </div>
+
+            <!--{{zone_form}}-->
+            <div class="card-body">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fa fa-plus-circle"></i> Ajouter une zone
+                </button>
+
+                {% if object.groupzone_set.count > 0 %}
+                <h4>Liste des zones de prespection</h4>
+                <br>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nom</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    {% for zone in object.groupzone_set.all %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{zone.name}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <ul class="errorlist">
+                    <li>
+                        Ce groupe n'a pas encore de zone de propection
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+            <!--<div class="card-footer">-->
+            <!--<button class="btn btn-outline-primary">Terminer</button>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+{% endblock content %}
+

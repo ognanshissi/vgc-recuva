@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}Tableau de bord | {{ block.super }}  {% endblock %}
+{% block javascripts %}
+{{ block.super }}
+
+<script>
+    $(document).ready(function () {
+        $('#bootstrap-data-table-export').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+            }
+        });
+    });
+</script>
+{% endblock javascripts %}
+
+{% block content %}
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Tableau de bord</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li class="active">Produits</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Liste des versements</strong>
+                <div class="pull-right">
+
+                    <!--<span><a title="Add New" href="{% url 'product:product-create' %}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Ajouter</a></span>-->
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="">
+                    <button class="btn btn-default">Filtrer</button>
+                    <form action="" style="display: inline-block" method="get">
+                    </form>
+                </div>
+            </div>
+            <div class="card-body">
+                <!--{% if request.GET.lens_type %} {{all_stock.count}} {% endif %}-->
+
+                {% if object_list %}
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nom du groupe</th>
+                        <th scope="col">Nombre de commande</th>
+                        <th scope="col">Versement restant</th>
+                        <th scope="col">Date du dernier versement</th>
+
+                        <!--<th scope="col">En stock</th>-->
+                        <!--<th scope="col">Quantité</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for bill in object_list %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <ul class="errorlist">
+                    <li>Il n'a ya aucun versement</li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

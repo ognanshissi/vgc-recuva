@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}Liste des clients | {{ block.super }}  {% endblock %}
+{% block javascripts %}
+{{ block.super }}
+
+<script>
+    $(document).ready(function () {
+        $('#bootstrap-data-table-export').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+            }
+        });
+    });
+</script>
+{% endblock javascripts %}
+
+{% block content %}
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Tableau de bord</h1>
+            </div>
+        </div>
+    </div>
+    <!--<div class="col-sm-8">-->
+        <!--<div class="page-header float-right">-->
+            <!--<div class="page-title">-->
+                <!--<ol class="breadcrumb text-right">-->
+                    <!--<li class="active">Produits</li>-->
+                <!--</ol>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>
+
+<div class="content mt-3">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Liste des clients</strong>
+                <div class="pull-right">
+                    <!--<span>Filtrer par type de lentille: </span>-->
+                    <span><a title="Add New" href="{% url 'customer:customer-create' %}" class="btn btn-primary"><i
+                            class="fa fa-plus-circle"></i> Ajouter un client</a></span>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="">
+                    <button class="btn btn-default">Filtrer</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <!--{% if request.GET.lens_type %} {{all_stock.count}} {% endif %}-->
+                {% if object_list %}
+                <table id="bootstrap-data-table" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <!--<th scope="col">Reference</th>-->
+                        <th scope="col">Nom et Prenom</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">Adresse</th>
+                        <!--<th scope="col">Avance</th>-->
+                        <th scope="col">Categorie</th>
+                        <!--<th scope="col">Status</th>-->
+                        <!--<th scope="col">Date de consultation</th>-->
+                        <th scope="col"><!-- TODO: write "Action' to show the user what this "th" is for --></th>
+
+                        <!--<th scope="col">En stock</th>-->
+                        <!--<th scope="col">Quantité</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for c in object_list %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a href="{{c.get_absolute_url}}" title="Order Detail">{{c.get_full_name}}</a></td>
+                        <td>{{c.contact}}</td>
+                        <td>{{c.address}}</td>
+                        <td>{{c.get_category_display}}</td>
+                        <!--<td>{{c.commercial_group.name}}</td>-->
+                        <td>
+                            <a class="btn btn-outline-primary" href="{{c.get_absolute_url}}" title="Order Detail"><i class="fa fa-eye"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <ul class="errorlist">
+                    <li>Il n'y a aucun client</li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

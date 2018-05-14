@@ -1,0 +1,7 @@
+<form action="" method="post" novalidate enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include "snippets/form-template.html" with form=zone_form %}
+    <!--<div class="form-row">-->
+        <!--<input name="AddZone" class="btn btn-primary" type="submit" value="Enre">-->
+    <!--</div>-->
+</form>
